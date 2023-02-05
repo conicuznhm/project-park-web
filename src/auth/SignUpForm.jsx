@@ -4,9 +4,33 @@ import Input from '../components/Input';
 export default function SignUpForm() {
   return (
     <form className="flex justify-center">
-      <div className="flex flex-col w-4/5 gap-y-12">
-        <div className="flex flex-col gap-y-4">
+      <div className="flex flex-col w-4/5 gap-y-8">
+        <div className="flex flex-col text-start">
           <h1>Sign Up</h1>
+        </div>
+        <div className="flex flex-col gap-y-8">
+          <Input
+            placeholder="First Name"
+            name="firstName"
+            value=""
+            onChange={() => {}}
+            //   error="error"
+          />
+          <Input
+            placeholder="Last Name"
+            name="lastName"
+            value=""
+            onChange={() => {}}
+            //   error="error"
+          />
+          <Input
+            placeholder="Phone Number"
+            name="phone"
+            value=""
+            onChange={() => {}}
+            //   error="error"
+          />
+
           <Input
             placeholder="Email"
             name="email"
@@ -14,8 +38,6 @@ export default function SignUpForm() {
             onChange={() => {}}
             //   error="error"
           />
-        </div>
-        <div className="flex flex-col gap-y-6">
           <Input
             placeholder="Password"
             name="password"
