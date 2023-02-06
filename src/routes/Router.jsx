@@ -17,7 +17,11 @@ import ReservePage from '../reserve/reservePage';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <FirstPage />
+    element: (
+      <RedirectIfAuth>
+        <FirstPage />
+      </RedirectIfAuth>
+    )
   },
   {
     path: '/login',
@@ -29,11 +33,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/signup',
-    element: (
-      <RedirectIfAuth>
-        <SignUpPage />
-      </RedirectIfAuth>
-    )
+    element: <SignUpPage />
   },
 
   {
