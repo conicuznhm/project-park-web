@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import ProtectedRoute from '../auth/ProtectedRoute';
-import RedirectIfAuth from '../auth/RedirectIfAuth';
+import ProtectedRoute from '../features/auth/ProtectedRoute';
+import RedirectIfAuth from '../features/auth/RedirectIfAuth';
 import AuthLayout from '../layouts/AuthLayout';
 import AdminSetting from '../pages/AdminSetting';
 import FirstPage from '../pages/FirstPage';

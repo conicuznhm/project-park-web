@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import Input from '../components/Input';
-import { signUp } from '../apis/auth-api';
+import Input from '../../components/Input';
+import { signUp } from '../../apis/auth-api';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
