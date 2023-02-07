@@ -4,11 +4,12 @@ import RedirectIfAuth from '../features/auth/RedirectIfAuth';
 import AuthLayout from '../layouts/AuthLayout';
 import AdminSetting from '../pages/AdminSetting';
 import FirstPage from '../pages/FirstPage';
-import Home from '../pages/Home';
+import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
 import ParkSetting from '../pages/ParkSetting';
 import SearchPage from '../pages/SearchPage';
 import SignUpPage from '../pages/SignUpPage';
+import SlipPage from '../pages/SlipPage';
 import UserSetting from '../pages/UserSetting';
 import VehicleSetting from '../pages/VehicleSetting';
 import NavigatePage from '../reserve/NavigatePage';
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/home',
-        element: <Home />
+        element: <HomePage />
       },
       {
         path: '/search',
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
       {
         path: '/reserve',
         element: <ReservePage />
+      },
+      {
+        path: '/slip',
+        element: <SlipPage />
       }
     ]
   }

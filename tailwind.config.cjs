@@ -9,6 +9,12 @@ module.exports = {
     extend: {
       backgroundImage: {
         'universe-first': "url('./src/assets/iPhone14Pro.svg')"
+      },
+      width: {
+        '104': '104px'
+      },
+      height: {
+        '84': '84px'
       }
     },
   },

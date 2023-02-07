@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import Input from '../../components/Input';
 import { signUp } from '../../apis/auth-api';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const initialInput = {
   firstName: '',
@@ -15,6 +16,7 @@ const initialInput = {
 
 export default function SignUpForm() {
   const [input, setInput] = useState(initialInput);
+  const navigate = useNavigate();
 
   const handleChangeInput = e => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -31,10 +33,10 @@ export default function SignUpForm() {
 
       await signUp(input); //authApi signUp
       setInput(initialInput);
-
+      navigate('/login');
       toast.success('success register');
     } catch (err) {
-      console.log(err.message);
+      console.error(err);
     }
   };
 

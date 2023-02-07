@@ -2,38 +2,17 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { fetchAuth, loginCase } from '../../redux/auth-slice';
+import { loginCase } from '../../redux/auth-slice';
 import * as authApi from '../../apis/auth-api';
-import { getAccessToken, removeAccessToken, setAccessToken } from '../../utils/local-storage';
+import { setAccessToken } from '../../utils/local-storage';
 import jwtDecode from 'jwt-decode';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // const {login} = useSelector()
-
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   if (getAccessToken()) {
-  //     dispatch(fetchAuthUser());
-  //   }
-  // }, []);
-
-  // const fetchAuthUser = () => async (dispatch, getState) => {
-  //   try {
-  //     const res = await authApi.getUser();
-  //     dispatch(fetchAuth(res.data.user));
-  //   } catch (err) {}
-  // };
-
-  // useEffect(() => {
-  //   if (getAccessToken()) {
-  //     dispatch(fetchAuthUser());
-  //   }
-  // }, []);
 
   const handleSubmit = async e => {
     try {
