@@ -44,7 +44,7 @@ export default function LoginForm() {
         </div>
         <div>
           <input
-            type="text"
+            type="password"
             className=" placeholder:pl-1 placeholder:text-white my-0 mx-auto w-full bg-transparent border border-[#3CACFD] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5"
             placeholder="Enter Password"
             value={password}

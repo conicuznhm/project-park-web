@@ -20,7 +20,7 @@ const mapping = {
 
 export default function Header() {
   const location = useLocation();
-  console.log(location);
+  // console.log(location);
 
   const dispatch = useDispatch();
   const handleClickOut = () => {

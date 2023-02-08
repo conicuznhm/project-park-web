@@ -77,6 +77,7 @@ export default function SignUpForm() {
             //   error="error"
           />
           <Input
+            type="password"
             placeholder="Password"
             name="password"
             value={input.password}
@@ -84,6 +85,7 @@ export default function SignUpForm() {
             // error="error"
           />
           <Input
+            type="password"
             placeholder="Confirm password"
             name="confirmPassword"
             value={input.confirmPassword}
