@@ -9,7 +9,6 @@ import { useEffect } from 'react';
 export default function UserSetting() {
   const authUser = useSelector(selectUser);
   const [isEdit, setIsEdit] = useState(false);
-  const [isImage, setIsImage] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
@@ -38,7 +37,8 @@ export default function UserSetting() {
     const formData = new FormData();
     formData.append('profileImage', file);
     const res = await userApi.updateProfile(formData);
-    dispatch(updateCase({ profileImage: res.data }));
+    // console.log(file);
+    dispatch(updateCase({ profileImage: res.data.profileImage }));
     setFile(null);
   };
 
@@ -54,21 +54,24 @@ export default function UserSetting() {
       <div className="mx-auto w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div className="flex flex-col items-center pb-10">
           <img
-            onClick={() => setIsImage(!isImage)}
+            onClick={() => isEdit && document.getElementById('chooseImage').click()}
             className="w-24 h-24 mb-3 rounded-full shadow-lg relative"
-            src={authUser.profileImage || cat1}
+            src={file ? URL.createObjectURL(file) : authUser.profileImage || cat1}
             alt="Profile image"
           />
-          {isImage ? (
-            <div className="absolute top-1/4">
-              <input
-                type="file"
-                name="editProfileImage"
-                onChange={e => {
-                  e.target.files[0] && setFile(e.target.files[0]);
-                }}
-              />
-              <div className="w-20 h-20">
+
+          <div className="left-1/3">
+            <input
+              id="chooseImage"
+              type="file"
+              name="editProfileImage"
+              className="hidden"
+              onChange={e => {
+                e.target.files[0] && setFile(e.target.files[0]);
+              }}
+            />
+            {isEdit ? (
+              <div className="">
                 <button
                   onClick={handleClickSave}
                   type="button"
@@ -80,8 +83,9 @@ export default function UserSetting() {
                   Save
                 </button>
               </div>
-            </div>
-          ) : null}
+            ) : null}
+          </div>
+
           <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
             {authUser.firstName} {authUser.lastName}
           </h5>
@@ -124,13 +128,6 @@ export default function UserSetting() {
               onChange={e => setPhone(e.target.value)}
               error=""
             />
-            {/* <Input
-              type="file"
-              name="editProfileImage"
-              onChange={e => {
-                e.target.files[0] && setFile(e.target.files[0]);
-              }}
-            /> */}
           </div>
           <div className="flex justify-between">
             <div className="w-36">
