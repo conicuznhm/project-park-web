@@ -13,7 +13,7 @@ import SlipPage from '../pages/SlipPage';
 import UserSetting from '../pages/UserSetting';
 import VehicleSetting from '../pages/VehicleSetting';
 import NavigatePage from '../reserve/NavigatePage';
-import ReservePage from '../reserve/reservePage';
+import ReservePage from '../reserve/ReservePage';
 
 const router = createBrowserRouter([
   {
