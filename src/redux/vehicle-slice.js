@@ -9,7 +9,8 @@ const vehicleSlice = createSlice({
       state.vehicle = action.payload;
     },
     updateCase: (state, action) => {
-      state.vehicle = { ...state.vehicle, ...action.payload };
+      // state.vehicle = { ...state.vehicle, ...action.payload };
+
     }
   }
 });
@@ -22,6 +23,16 @@ export const fetchVehicle = () => async (dispatch, getState) => {
     console.log(err);
   }
 };
+
+export const createVehicle = () => async (dispatch, getState) => {
+  try {
+    const res = await vehicleApi.createVehicle(input);
+    dispatch(getCase(res.data));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 
 export const { getCase, updateCase } = vehicleSlice.actions;
 export default vehicleSlice.reducer;

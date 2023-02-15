@@ -14,6 +14,7 @@ import UserSetting from '../pages/UserSetting';
 import VehicleSetting from '../pages/VehicleSetting';
 import NavigatePage from '../reserve/NavigatePage';
 import ReservePage from '../reserve/ReservePage';
+import TransactionPage from '../pages/TransactionPage';
 
 const router = createBrowserRouter([
   {
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
       {
         path: '/slip',
         element: <SlipPage />
+      },
+      {
+        path: '/transaction',
+        element: <TransactionPage />
       }
     ]
   }

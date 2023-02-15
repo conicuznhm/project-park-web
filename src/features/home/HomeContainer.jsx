@@ -26,10 +26,10 @@ export default function HomeContainer() {
           <Item src={car1} alt="car1" name="Vehicle Profile" />
         </Link>
         <Link to="/reserve">
-          <Item src={park2} alt="park2" name="Reservations" />
+          <Item src={park2} alt="park2" name="Booking" />
         </Link>
         <Link to="/slip">
-          <Item src={park3} alt="park3" name="Slips" />
+          <Item src={park3} alt="park3" name="Reservation Profile" />
         </Link>
       </div>
     </div>

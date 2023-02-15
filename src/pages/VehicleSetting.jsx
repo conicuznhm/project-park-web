@@ -4,6 +4,15 @@ import Item from '../components/Item';
 
 export default function VehicleSetting() {
   const [isAdd, setIsAdd] = useState(false);
+  const [license, setLicense] = useState('');
+  const [type, setType] = useState('');
+  const [brand, setBrand] = useState('');
+
+  const handleCancel = () => {
+    setLicense('');
+    setType('');
+    setBrand('');
+  };
 
   return (
     <div className="flex flex-col gap-y-6 mt-10">
@@ -29,9 +38,24 @@ export default function VehicleSetting() {
             alt="Vehicle image"
           />
         </div>
-        <Input placeholder="First Name" name="firstName" />
-        <Input placeholder="First Name" name="firstName" />
-        <Input placeholder="First Name" name="firstName" />
+        <Input
+          placeholder="Car license"
+          name="license"
+          onChange={e => setLicense(e.target.value)}
+          value={license}
+        />
+        <Input
+          placeholder="Type"
+          name="type"
+          onChange={e => setType(e.target.value)}
+          value={type}
+        />
+        <Input
+          placeholder="Brand"
+          name="brand"
+          onChange={e => setBrand(e.target.value)}
+          value={brand}
+        />
       </div>
       <div className="flex justify-between">
         <div className="w-36">
@@ -47,6 +71,7 @@ export default function VehicleSetting() {
         </div>
         <div className="w-36">
           <button
+            onClick={handleCancel}
             type="button"
             className="text-black bg-sky-500 hover:bg-blue-800 
           font-medium rounded-lg text-base px-8 py-2.5 

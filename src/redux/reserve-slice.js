@@ -6,6 +6,7 @@ import * as slotApi from '../apis/slot-api'
 
 const initialState = {
     reservation: [],
+    resReserve: {},
     selectSlot: {},
     selectVehicle: 0
 }
@@ -70,7 +71,8 @@ const reserveSlice = createSlice({
             state.reservation = action.payload;
         },
         [createReservation.fulfilled](state, action) {
-            state.reservation = [...state.reservation, ...action.payload];
+            // state.reservation = [...state.reservation, ...action.payload];
+            state.resReserve = action.payload;
         },
         [updateReservation.fulfilled](state, action) {
             state.reservation = [...state.reservation, ...action.payload];

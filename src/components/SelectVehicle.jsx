@@ -18,7 +18,6 @@ export default function SelectVehicle() {
 
   const handleChange = e => {
     setSelect(e.target.value);
-    console.log(e.target.value);
     dispatch(updateSelectVehicle(e.target.value));
   };
   return (
