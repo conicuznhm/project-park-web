@@ -3,7 +3,7 @@ import * as vehicleApi from '../apis/vehicle-api';
 
 const vehicleSlice = createSlice({
   name: 'vehicle',
-  initialState: { vehicle: null },
+  initialState: { vehicle: [] },
   reducers: {
     getCase: (state, action) => {
       state.vehicle = action.payload;

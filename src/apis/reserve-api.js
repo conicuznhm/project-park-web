@@ -5,7 +5,7 @@ export const getReservation = () => axios.get('/reserve');
 export const getReservationByVehicleId = (vehicleId) => axios.get('/reserve/' + vehicleId);
 
 export const createReservation = input => axios.post('/reserve', input);
-
+export const updateReservation = (reserveId, input) => axios.patch('/reserve/' + reserveId, input);
 
 
 

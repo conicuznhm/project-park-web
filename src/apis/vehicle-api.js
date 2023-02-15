@@ -1,7 +1,7 @@
 import axios from '../config/axios';
 
 export const createVehicle = input => axios.post('/vehicle', input);
-export const getVehicle = () => axios.get('/vehicle/');
+export const getVehicle = () => axios.get('/vehicle');
 
 export const updateVehicle = (vehicleId, input) => axios.patch(`/vehicle/${vehicleId}`, input);
 export const updateVehicleImage = (vehicleId, formData) =>

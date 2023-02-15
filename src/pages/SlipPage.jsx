@@ -1,3 +1,9 @@
+import ReserveProfile from '../layouts/ReserveProfile';
+
 export default function SlipPage() {
-  return <h1>Slips</h1>;
+  return (
+    <div>
+      <ReserveProfile />
+    </div>
+  );
 }

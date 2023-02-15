@@ -53,6 +53,7 @@ export const fetchSlot = createAsyncThunk(
     }
 )
 
+// deprecate reserveSlice
 const parkSlice = createSlice({
     name: 'park',
     initialState,
@@ -84,6 +85,36 @@ const parkSlice = createSlice({
     }
 })
 
+
+//builder callback
+// const parkSlice = createSlice({
+//     name: 'park',
+//     initialState,
+//     reducers(builder) {
+//         builder
+//             .addCase(updatePark, (state, action) => {
+//                 state.park = action.payload;
+//             })
+//             .addCase(updateFloor, (state, action) => {
+//                 state.floor = action.payload;
+//             })
+//             .addCase(updateSlot, (state, action) => {
+//                 state.slot = action.payload;
+//             });
+//     },
+//     extraReducers(builder) {
+//         builder
+//             .addCase(fetchPark.fulfilled, (state, action) => {
+//                 state.park = action.payload;
+//             })
+//             .addCase(fetchFloor.fulfilled, (state, action) => {
+//                 state.floor = action.payload;
+//             })
+//             .addCase(fetchSlot.fulfilled, (state, action) => {
+//                 state.slot = action.payload;
+//             });
+//     }
+// })
 
 
 export const { updatePark, updateFloor, updateSlot } = parkSlice.actions;
