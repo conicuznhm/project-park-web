@@ -7,9 +7,11 @@ const vehicleSlice = createSlice({
   reducers: {
     getCase: (state, action) => {
       state.vehicle = action.payload;
+      // state.vehicle = action.payload;
     },
     updateCase: (state, action) => {
       // state.vehicle = { ...state.vehicle, ...action.payload };
+      state.vehicle.push(action.payload)
 
     }
   }
@@ -24,7 +26,7 @@ export const fetchVehicle = () => async (dispatch, getState) => {
   }
 };
 
-export const createVehicle = () => async (dispatch, getState) => {
+export const createVehicle = (input) => async (dispatch, getState) => {
   try {
     const res = await vehicleApi.createVehicle(input);
     dispatch(getCase(res.data));

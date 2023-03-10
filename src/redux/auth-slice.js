@@ -1,10 +1,12 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getAccessToken, removeAccessToken } from '../utils/local-storage';
-import * as authApi from '../apis/auth-api';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { getAccessToken, removeAccessToken } from "../utils/local-storage";
+import * as authApi from "../apis/auth-api";
+import jwtDecode from "jwt-decode";
 
-const initialState = { authUser: getAccessToken() ? true : null };
+// const initialState = { authUser: getAccessToken() ? true : null };
+const initialState = { authUser: getAccessToken() ? jwtDecode(getAccessToken()) : null };
 export const authSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     loginCase: (state, action) => {
@@ -30,13 +32,8 @@ export const fetchAuthUser = () => async (dispatch, getState) => {
   }
 };
 
-
-
-
-
 //Thunk
 // const initialState = { authUser: getAccessToken() ? true : null };
-
 
 // export const fetchAuthUser = createAsyncThunk('fetchAuth', async (_, store) => {
 //   try {
@@ -49,7 +46,6 @@ export const fetchAuthUser = () => async (dispatch, getState) => {
 //     throw err;
 //   }
 // });
-
 
 // export const authSlice = createSlice({
 //   name: 'user',
@@ -78,9 +74,6 @@ export const fetchAuthUser = () => async (dispatch, getState) => {
 //   //   }
 //   // }
 // });
-
-
-
 
 export const { loginCase, logoutCase, updateCase } = authSlice.actions;
 export const selectUser = state => state.user.authUser;

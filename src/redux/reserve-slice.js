@@ -56,8 +56,9 @@ const reserveSlice = createSlice({
     initialState: initialState,
     reducers: {
         updateReserve(state, action) {
+            state.reservation.push(action.payload);
             // state.reservation = {...state.reservation,...action.payload};
-            return { ...state.reservation, ...action.payload };
+            // return { ...state.reservation, ...action.payload };
         },
         updateSelectSlot(state, action) {
             state.selectSlot = action.payload;

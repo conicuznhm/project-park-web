@@ -1,17 +1,17 @@
-import moment from 'moment';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
-import ButtonCustom from '../components/ButtonCustom';
-import OptionVehicle from '../components/OptionVehicle';
-import SelectVehicle from '../components/SelectVehicle';
-import VehicleSlot from '../components/VehicleSlot';
-import { selectUser } from '../redux/auth-slice';
-import { fetchFloor, fetchSlot, selectFloor, selectSlot } from '../redux/park-slice';
-import { createReservation, selectSelectSlot, selectSelectVehicle } from '../redux/reserve-slice';
-import { fetchVehicle, selectVehicle } from '../redux/vehicle-slice';
+import moment from "moment";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import ButtonCustom from "../components/ButtonCustom";
+import OptionVehicle from "../components/OptionVehicle";
+import SelectVehicle from "../components/SelectVehicle";
+import VehicleSlot from "../components/VehicleSlot";
+import { selectUser } from "../redux/auth-slice";
+import { fetchFloor, fetchSlot, selectFloor, selectSlot } from "../redux/park-slice";
+import { createReservation, selectSelectSlot, selectSelectVehicle } from "../redux/reserve-slice";
+import { fetchVehicle, selectVehicle } from "../redux/vehicle-slice";
 
 export default function ReserveContainer() {
   const dispatch = useDispatch();
@@ -22,11 +22,12 @@ export default function ReserveContainer() {
 
   //slotId = obj    vehicleId = number
   const initialInput = {
+    selectStart: new Date(),
     selectEnd: new Date(),
-    isPaid: '',
-    slotId: '',
-    parkId: '',
-    vehicleId: ''
+    isPaid: "",
+    slotId: "",
+    parkId: "",
+    vehicleId: ""
   };
 
   const [floorSelect, setFloorSelect] = useState(-1);
@@ -89,11 +90,12 @@ export default function ReserveContainer() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    isPay ? dispatch(createReservation(reserveInput)) : console.log('Need to pay first');
-    navigate('/transaction');
+    isPay ? dispatch(createReservation(reserveInput)) : console.log("Need to pay first");
+    navigate("/transaction");
   };
 
   console.log(floor);
+  console.log(reserveInput);
   return (
     <form onSubmit={handleSubmit}>
       {floor.length ? (
@@ -103,7 +105,7 @@ export default function ReserveContainer() {
             {floor.map(el => {
               return (
                 <ButtonCustom
-                  word={'Floor ' + el.floorName}
+                  word={"Floor " + el.floorName}
                   onClick={handleClick}
                   key={el.id}
                   name={el.id}
@@ -113,12 +115,28 @@ export default function ReserveContainer() {
           </div>
           <div className="h-[10%]">
             {isShow && (
-              <input
-                type="datetime-local"
-                name="selectEnd"
-                onChange={handleChangeDate}
-                className="mr-2"
-              />
+              <>
+                <div>
+                  <label htmlFor="start">Start</label>
+                  <input
+                    id="start"
+                    type="datetime-local"
+                    name="selectStart"
+                    onChange={handleChangeDate}
+                    className="mr-2"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="end">End</label>
+                  <input
+                    id="end"
+                    type="datetime-local"
+                    name="selectEnd"
+                    onChange={handleChangeDate}
+                    className="mr-2"
+                  />
+                </div>
+              </>
             )}
             {isShow && <ButtonCustom word="OK" type="button" onClick={handleOk} />}
             <div>
