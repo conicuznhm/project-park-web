@@ -16,14 +16,15 @@ import { fetchVehicle, selectVehicle } from "../redux/vehicle-slice";
 export default function ReserveContainer() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  //   const parkId = useParams();
 
+  //   const parkId = useParams();
   const parkId = 1;
 
   //slotId = obj    vehicleId = number
+  const now = new Date();
   const initialInput = {
-    selectStart: new Date(),
-    selectEnd: new Date(),
+    selectStart: now.toISOString().slice(0, 16),
+    selectEnd: new Date(now.getTime() + 60000 * 60).toISOString().slice(0, 16),
     isPaid: "",
     slotId: "",
     parkId: "",
@@ -34,7 +35,8 @@ export default function ReserveContainer() {
   const [selectAll, setSelectAll] = useState(true);
   const [reserveInput, setReserveInput] = useState(initialInput);
   const [isShow, setIsShow] = useState(true);
-
+  const minStart = new Date().toISOString().slice(0, 16);
+  const minEnd = new Date(reserveInput.selectStart).toISOString().slice(0, 16);
   //fetch data
   //get floor by parkId
   useEffect(() => {
@@ -44,15 +46,22 @@ export default function ReserveContainer() {
 
   //get slot
   useEffect(() => {
-    dispatch(fetchSlot());
-  }, []);
+    // const timeoutId = setTimeout(() => {
+    //   dispatch(fetchSlot({ parkId, reserveInput }));
+    //   if (reserveInput.selectEnd) {
+    //   }
+    // }, 500);
+    const handleFetchSlot = () => {
+      dispatch(fetchSlot({ parkId, reserveInput }));
+    };
+    const timeoutId = setTimeout(handleFetchSlot, 500);
+    return () => clearTimeout(timeoutId);
+  }, [parkId, dispatch, reserveInput.selectStart, reserveInput.selectEnd]);
+
   const slot = useSelector(selectSlot);
 
   const slotSelect = useSelector(selectSelectSlot);
   const vehicleSelect = useSelector(selectSelectVehicle);
-  // console.log(slotSelect.id);
-  // console.log(vehicleSelect);
-  // console.log(reserveInput);
 
   //handle logic
   const handleClick = e => {
@@ -121,6 +130,7 @@ export default function ReserveContainer() {
                   <input
                     id="start"
                     type="datetime-local"
+                    min={minStart}
                     name="selectStart"
                     onChange={handleChangeDate}
                     className="mr-2"
@@ -131,6 +141,7 @@ export default function ReserveContainer() {
                   <input
                     id="end"
                     type="datetime-local"
+                    min={minEnd}
                     name="selectEnd"
                     onChange={handleChangeDate}
                     className="mr-2"

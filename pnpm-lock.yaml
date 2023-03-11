@@ -15,6 +15,7 @@ specifiers:
   postcss: ^8.4.21
   react: ^18.2.0
   react-dom: ^18.2.0
+  react-load-script: ^0.0.6
   react-redux: ^8.0.5
   react-router-dom: ^6.8.0
   react-toastify: ^9.1.1
@@ -31,6 +32,7 @@ dependencies:
   moment: 2.29.4
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-load-script: 0.0.6_react@18.2.0
   react-redux: 8.0.5_fxtgt6bjwd6p4cwoordejim2zi
   react-router-dom: 6.8.0_biqbaboplfbrettd7655fr4n2y
   react-toastify: 9.1.1_biqbaboplfbrettd7655fr4n2y
@@ -1314,6 +1316,16 @@ packages:
 
   /react-is/18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
+    dev: false
+
+  /react-load-script/0.0.6_react@18.2.0:
+    resolution: {integrity: sha512-aRGxDGP9VoLxcsaYvKWIW+LRrMOzz2eEcubTS4NvQPPugjk2VvMhow0wWTkSl7RxookomD1MwcP4l5UStg5ShQ==}
+    deprecated: abandoned and unmaintained
+    peerDependencies:
+      prop-types: '>=15'
+      react: '>=0.14.9'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-redux/8.0.5_fxtgt6bjwd6p4cwoordejim2zi:

@@ -1,11 +1,11 @@
-import { boolean } from 'joi';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import ButtonCustom from '../components/ButtonCustom';
-import ReportPara from '../components/ReportPara';
-import { selectReservation, selectSelectSlot, fetchReservation } from '../redux/reserve-slice';
+import { boolean } from "joi";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import ButtonCustom from "../components/ButtonCustom";
+import ReportPara from "../components/ReportPara";
+import { selectReservation, selectSelectSlot, fetchReservation } from "../redux/reserve-slice";
 
 export default function ReserveProfile() {
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ export default function ReserveProfile() {
         </div>
         <div>
           {res
-            ? res.map(el => (
+            ? res?.map(el => (
                 <div key={el.id} className="border border-b-8 border-black">
                   <ReportPara item={el?.Park?.name} />
                   <ReportPara item={el?.Park?.address} />

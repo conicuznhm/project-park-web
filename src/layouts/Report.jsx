@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import ReportPara from '../components/ReportPara';
+import { Link } from "react-router-dom";
+import ReportPara from "../components/ReportPara";
 
 export default function Report({ res }) {
   // res.id  res.Park.name res.Park.address res.priceRate   res.reserveCost

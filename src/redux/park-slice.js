@@ -1,90 +1,81 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import * as parkApi from '../apis/park-api'
-import * as floorApi from '../apis/floor-api'
-import * as slotApi from '../apis/slot-api'
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import * as parkApi from "../apis/park-api";
+import * as floorApi from "../apis/floor-api";
+import * as slotApi from "../apis/slot-api";
 
 const initialState = {
-    park: [],
-    floor: [],
-    slot: []
-}
+  park: [],
+  floor: [],
+  slot: []
+};
 
 //Park
-export const fetchPark = createAsyncThunk(
-    'fetchPark',
-    async () => {
-        try {
-            const res = await parkApi.getPark();
-            return res.data;
-        } catch (err) {
-            console.error(err);
-            throw err;
-        }
-    }
-)
+export const fetchPark = createAsyncThunk("fetchPark", async () => {
+  try {
+    const res = await parkApi.getPark();
+    return res.data;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+});
 
 //floor
-export const fetchFloor = createAsyncThunk(
-    'fetchFloor',
-    async (parkId) => {
-        try {
-            const res = await floorApi.getFloorByParkId(parkId);
-            return res.data;
-        } catch (err) {
-            console.error(err);
-            throw err;
-        }
-    }
-)
-
+export const fetchFloor = createAsyncThunk("fetchFloor", async parkId => {
+  try {
+    const res = await floorApi.getFloorByParkId(parkId);
+    return res.data;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+});
 
 //Slot
 export const fetchSlot = createAsyncThunk(
-    'fetchSlot',
-    async () => {
-        try {
-            const res = await slotApi.getSlot();
-            // return [...res.data];
-            return res.data;
-        } catch (err) {
-            console.error(err);
-            throw err;
-        }
+  "fetchSlot",
+  async ({ parkId, reserveInput: { selectStart, selectEnd } }) => {
+    try {
+      const res = await slotApi.getSlotByParkId(parkId, selectStart, selectEnd);
+      // return [...res.data];
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      throw err;
     }
-)
+  }
+);
 
 // deprecate reserveSlice
 const parkSlice = createSlice({
-    name: 'park',
-    initialState,
-    reducers: {
-        updatePark: (state, action) => {
-            state.park = action.payload;
-        },
-
-        updateFloor: (state, action) => {
-            state.floor = action.payload;
-        },
-
-        updateSlot: (state, action) => {
-            state.slot = action.payload;
-        }
+  name: "park",
+  initialState,
+  reducers: {
+    updatePark: (state, action) => {
+      state.park = action.payload;
     },
-    extraReducers: {
-        [fetchPark.fulfilled]: (state, action) => {
-            state.park = action.payload;
-        },
 
-        [fetchFloor.fulfilled]: (state, action) => {
-            state.floor = action.payload;
-        },
+    updateFloor: (state, action) => {
+      state.floor = action.payload;
+    },
 
-        [fetchSlot.fulfilled]: (state, action) => {
-            state.slot = action.payload;
-        }
+    updateSlot: (state, action) => {
+      state.slot = action.payload;
     }
-})
-
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchPark.fulfilled, (state, action) => {
+        state.park = action.payload;
+      })
+      .addCase(fetchFloor.fulfilled, (state, action) => {
+        state.floor = action.payload;
+      })
+      .addCase(fetchSlot.fulfilled, (state, action) => {
+        state.slot = action.payload;
+      });
+  }
+});
 
 //builder callback
 // const parkSlice = createSlice({
@@ -116,28 +107,12 @@ const parkSlice = createSlice({
 //     }
 // })
 
-
 export const { updatePark, updateFloor, updateSlot } = parkSlice.actions;
 export default parkSlice.reducer;
 
 export const selectPark = state => state.park.park;
 export const selectFloor = state => state.park.floor;
 export const selectSlot = state => state.park.slot;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // reducers: {
 //     loginCase: (state, action) => {
@@ -152,16 +127,6 @@ export const selectSlot = state => state.park.slot;
 //       // state.authUser = action.payload;
 //     }
 //   }
-
-
-
-
-
-
-
-
-
-
 
 // //Slot
 // export const fetchSlot = createAsyncThunk(
@@ -191,8 +156,6 @@ export const selectSlot = state => state.park.slot;
 //         }
 //     }
 // })
-
-
 
 // export const { update } = parkSlice.actions;
 // export default parkSlice.reducer;
