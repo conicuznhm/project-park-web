@@ -35,8 +35,9 @@ export default function ReserveContainer() {
   const [selectAll, setSelectAll] = useState(true);
   const [reserveInput, setReserveInput] = useState(initialInput);
   const [isShow, setIsShow] = useState(true);
-  const minStart = new Date().toISOString().slice(0, 16);
+  const minStart = now.toISOString().slice(0, 16);
   const minEnd = new Date(reserveInput.selectStart).toISOString().slice(0, 16);
+
   //fetch data
   //get floor by parkId
   useEffect(() => {
@@ -56,7 +57,7 @@ export default function ReserveContainer() {
     };
     const timeoutId = setTimeout(handleFetchSlot, 500);
     return () => clearTimeout(timeoutId);
-  }, [parkId, dispatch, reserveInput.selectStart, reserveInput.selectEnd]);
+  }, [parkId, reserveInput.selectStart, reserveInput.selectEnd]);
 
   const slot = useSelector(selectSlot);
 
@@ -75,7 +76,15 @@ export default function ReserveContainer() {
   };
 
   const handleChangeDate = e => {
+    const newMin = e.target.value.slice(14, 16);
+    const oldMinStart = reserveInput.selectStart.slice(14, 16);
+    const oldMinEnd = reserveInput.selectEnd.slice(14, 16);
     setReserveInput({ ...reserveInput, [e.target.name]: e.target.value });
+    if (newMin !== oldMinStart && e.target.name === "selectStart") {
+      e.target.blur();
+    } else if (newMin !== oldMinEnd && e.target.name === "selectEnd") {
+      e.target.blur();
+    }
   };
 
   //isPay logic to get true or false
@@ -153,6 +162,7 @@ export default function ReserveContainer() {
             <div>
               {!isShow && <ButtonCustom word="Cancel" type="button" onClick={handleCancel} />}
               {!isShow && <ButtonCustom word="reserve" type="submit" />}
+              {/* {!isShow && <Link to="/checkoutPage"/>} */}
             </div>
           </div>
           <div>{isShow && <SelectVehicle />}</div>
