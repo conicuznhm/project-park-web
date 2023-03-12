@@ -1,24 +1,26 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import ProtectedRoute from '../features/auth/ProtectedRoute';
-import RedirectIfAuth from '../features/auth/RedirectIfAuth';
-import AuthLayout from '../layouts/AuthLayout';
-import AdminSetting from '../pages/AdminSetting';
-import FirstPage from '../pages/FirstPage';
-import HomePage from '../pages/HomePage';
-import LoginPage from '../pages/LoginPage';
-import ParkSetting from '../pages/ParkSetting';
-import SearchPage from '../pages/SearchPage';
-import SignUpPage from '../pages/SignUpPage';
-import SlipPage from '../pages/SlipPage';
-import UserSetting from '../pages/UserSetting';
-import VehicleSetting from '../pages/VehicleSetting';
-import NavigatePage from '../reserve/NavigatePage';
-import ReservePage from '../reserve/ReservePage';
-import TransactionPage from '../pages/TransactionPage';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ProtectedRoute from "../features/auth/ProtectedRoute";
+import RedirectIfAuth from "../features/auth/RedirectIfAuth";
+import AuthLayout from "../layouts/AuthLayout";
+import AdminSetting from "../pages/AdminSetting";
+import FirstPage from "../pages/FirstPage";
+import HomePage from "../pages/HomePage";
+import LoginPage from "../pages/LoginPage";
+import ParkSetting from "../pages/ParkSetting";
+import SearchPage from "../pages/SearchPage";
+import SignUpPage from "../pages/SignUpPage";
+import SlipPage from "../pages/SlipPage";
+import UserSetting from "../pages/UserSetting";
+import VehicleSetting from "../pages/VehicleSetting";
+import NavigatePage from "../reserve/NavigatePage";
+import ReservePage from "../reserve/ReservePage";
+import TransactionPage from "../pages/TransactionPage";
+import VehiclePage from "../pages/VehiclePage";
+import ParkPage from "../pages/ParkPage";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: (
       <RedirectIfAuth>
         <FirstPage />
@@ -26,7 +28,7 @@ const router = createBrowserRouter([
     )
   },
   {
-    path: '/login',
+    path: "/login",
     element: (
       <RedirectIfAuth>
         <LoginPage />
@@ -34,7 +36,7 @@ const router = createBrowserRouter([
     )
   },
   {
-    path: '/signup',
+    path: "/signup",
     element: <SignUpPage />
   },
 
@@ -46,43 +48,51 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: '/admin',
+        path: "/admin",
         element: <AdminSetting />
       },
       {
-        path: '/home',
+        path: "/home",
         element: <HomePage />
       },
       {
-        path: '/search',
+        path: "/search",
         element: <SearchPage />
       },
       {
-        path: '/user',
+        path: "/user",
         element: <UserSetting />
       },
       {
-        path: '/vehicle',
-        element: <VehicleSetting />
+        path: "/vehicle",
+        element: <VehiclePage />
+      },
+      // {
+      //   path: '/vehicle',
+      //   element: <VehicleSetting />
+      // },
+      {
+        path: "/park",
+        element: <ParkPage />
       },
       {
-        path: '/park',
+        path: "/parksetting",
         element: <ParkSetting />
       },
       {
-        path: '/navigate',
+        path: "/navigate",
         element: <NavigatePage />
       },
       {
-        path: '/reserve',
+        path: "/reserve",
         element: <ReservePage />
       },
       {
-        path: '/slip',
+        path: "/slip",
         element: <SlipPage />
       },
       {
-        path: '/transaction',
+        path: "/transaction",
         element: <TransactionPage />
       }
     ]

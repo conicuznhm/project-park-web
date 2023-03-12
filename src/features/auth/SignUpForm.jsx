@@ -1,17 +1,17 @@
-import { Link } from 'react-router-dom';
-import Input from '../../components/Input';
-import { signUp } from '../../apis/auth-api';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import Input from "../../components/Input";
+import { signUp } from "../../apis/auth-api";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const initialInput = {
-  firstName: '',
-  lastName: '',
-  phone: '',
-  email: '',
-  password: '',
-  confirmPassword: ''
+  firstName: "",
+  lastName: "",
+  phone: "",
+  email: "",
+  password: "",
+  confirmPassword: ""
 };
 
 export default function SignUpForm() {
@@ -27,23 +27,22 @@ export default function SignUpForm() {
   const handleSubmit = async e => {
     try {
       e.preventDefault();
-      // console.log(input);
-      // const result = input
-      // console.log(input);
-
-      await signUp(input); //authApi signUp
+      await signUp(input);
       setInput(initialInput);
-      navigate('/login');
-      toast.success('success register');
+      navigate("/login");
+      toast.success("success register");
     } catch (err) {
       console.error(err);
     }
   };
 
   return (
-    <form className="flex justify-center" onSubmit={handleSubmit}>
+    <form
+      className="flex justify-center items-center h-[852px] bg-[radial-gradient(at_center_top,_#184353,_#1B2838,_#1B2838)] border-0 rounded-2xl"
+      onSubmit={handleSubmit}
+    >
       <div className="flex flex-col w-4/5 gap-y-8">
-        <div className="flex flex-col text-start">
+        <div className="flex flex-col text-start text-white">
           <h1>Sign Up</h1>
         </div>
         <div className="flex flex-col gap-y-8">

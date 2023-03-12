@@ -1,9 +1,39 @@
-import { createSlice } from '@reduxjs/toolkit';
-import * as vehicleApi from '../apis/vehicle-api';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import * as vehicleApi from "../apis/vehicle-api";
+
+const initialState = {
+  vehicle: [],
+  loading: false
+};
+
+export const editVehicle = createAsyncThunk(
+  "vehicle/editVehicle",
+  async ({ type, brand, license, vehicleImage, vehicleId }) => {
+    try {
+      const formData = new FormData();
+      if (type) {
+        formData.append("type", type);
+      }
+      if (brand) {
+        formData.append("brand", brand);
+      }
+      if (license) {
+        formData.append("license", license);
+      }
+      if (vehicleImage) {
+        formData.append("vehicleImage", vehicleImage);
+      }
+      const res = await vehicleApi.editVehicleApi(vehicleId, formData);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+);
 
 const vehicleSlice = createSlice({
-  name: 'vehicle',
-  initialState: { vehicle: [] },
+  name: "vehicle",
+  initialState,
   reducers: {
     getCase: (state, action) => {
       state.vehicle = action.payload;
@@ -11,9 +41,21 @@ const vehicleSlice = createSlice({
     },
     updateCase: (state, action) => {
       // state.vehicle = { ...state.vehicle, ...action.payload };
-      state.vehicle.push(action.payload)
-
+      state.vehicle.push(action.payload);
+    },
+    clearVehicle: (state, action) => {
+      return initialState;
     }
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(editVehicle.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(editVehicle.fulfilled, (state, action) => {
+        state.vehicle = { ...state.vehicle, ...action.payload };
+        state.loading = initialState.loading;
+      });
   }
 });
 
@@ -26,7 +68,7 @@ export const fetchVehicle = () => async (dispatch, getState) => {
   }
 };
 
-export const createVehicle = (input) => async (dispatch, getState) => {
+export const createVehicle = input => async (dispatch, getState) => {
   try {
     const res = await vehicleApi.createVehicle(input);
     dispatch(getCase(res.data));
@@ -34,7 +76,6 @@ export const createVehicle = (input) => async (dispatch, getState) => {
     console.log(err);
   }
 };
-
 
 export const { getCase, updateCase } = vehicleSlice.actions;
 export default vehicleSlice.reducer;

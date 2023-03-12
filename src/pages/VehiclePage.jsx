@@ -1,21 +1,13 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchPark, selectPark } from "../redux/park-slice";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import ParkItem from "../components/ParkItem";
-import ParkAction from "../components/ParkAction";
+import VehicleAction from "../components/VehicleAction";
+import VehicleItem from "../components/VehicleItem";
 
-export default function ParkSetting() {
+export default function VehiclePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(fetchPark());
-  }, []);
-
-  const park = useSelector(selectPark);
-
-  console.log(park);
   //   const onClick = (el) => {
   //     navigate(
   //       "/app/" +
@@ -28,9 +20,9 @@ export default function ParkSetting() {
 
   return (
     <>
-      <div className="py-8 text-3xl">Park Profiles</div>
-      <ParkAction />
-      <ParkItem />
+      <div className="py-8 text-3xl">Vehicle Profile</div>
+      <VehicleAction />
+      <VehicleItem />
       {/* {cart?.map((el) => (
           <VehicleItem el={el} onClick={onClick} key={el?.id} />
         ))}

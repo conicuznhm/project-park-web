@@ -16,10 +16,16 @@ function App() {
   // }, []);
 
   return (
-    <div className="container-mobile">
+    //remove className="max-w-[393px] mx-auto my-10" when deploy and need properly responsive
+    <div className="max-w-[393px] mx-auto">
       <Router />
       <ToastContainer autoClose="2000" theme="light" position="top-center" />
     </div>
+
+    // <div className="container-mobile">
+    //   <Router />
+    //   <ToastContainer autoClose="2000" theme="light" position="top-center" />
+    // </div>
   );
 }
 

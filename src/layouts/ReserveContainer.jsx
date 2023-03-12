@@ -117,8 +117,8 @@ export default function ReserveContainer() {
   return (
     <form onSubmit={handleSubmit}>
       {floor.length ? (
-        <div className="overflow-hidden">
-          <div className="">
+        <div>
+          <div>
             <ButtonCustom word="All" onClick={handleClickAll} />
             {floor.map(el => {
               return (
