@@ -17,6 +17,7 @@ import ReservePage from "../reserve/ReservePage";
 import TransactionPage from "../pages/TransactionPage";
 import VehiclePage from "../pages/VehiclePage";
 import ParkPage from "../pages/ParkPage";
+import AdminRoute from "../features/auth/AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -41,16 +42,24 @@ const router = createBrowserRouter([
   },
 
   {
+    path: "/admin",
+    element: (
+      <AdminRoute>
+        <AdminSetting />
+      </AdminRoute>
+    )
+  },
+  {
     element: (
       <ProtectedRoute>
         <AuthLayout />
       </ProtectedRoute>
     ),
     children: [
-      {
-        path: "/admin",
-        element: <AdminSetting />
-      },
+      // {
+      //   path: "/admin",
+      //   element: <AdminSetting />
+      // },
       {
         path: "/home",
         element: <HomePage />

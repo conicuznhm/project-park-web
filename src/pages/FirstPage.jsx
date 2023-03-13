@@ -1,10 +1,12 @@
 // import { Dropdown } from 'flowbite-react';
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function FirstPage() {
+  const navigate = useNavigate();
   return (
-    <Link
-      to="/login"
+    <div
+      onClick={() => navigate("/login")}
       className="h-[852px] flex flex-col bg-universe-first justify-between bg-no-repeat border-0 rounded-2xl"
     >
       <div className="flex justify-center items-center h-full">
@@ -18,6 +20,6 @@ export default function FirstPage() {
           <Link to="/signup">Create an account</Link>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
