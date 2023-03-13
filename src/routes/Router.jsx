@@ -2,22 +2,22 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from "../features/auth/ProtectedRoute";
 import RedirectIfAuth from "../features/auth/RedirectIfAuth";
 import AuthLayout from "../layouts/AuthLayout";
-import AdminSetting from "../pages/AdminSetting";
 import FirstPage from "../pages/FirstPage";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
-import ParkSetting from "../pages/ParkSetting";
 import SearchPage from "../pages/SearchPage";
 import SignUpPage from "../pages/SignUpPage";
 import SlipPage from "../pages/SlipPage";
 import UserSetting from "../pages/UserSetting";
-import VehicleSetting from "../pages/VehicleSetting";
+// import VehicleSetting from "../pages/VehicleSetting";
 import NavigatePage from "../reserve/NavigatePage";
 import ReservePage from "../reserve/ReservePage";
 import TransactionPage from "../pages/TransactionPage";
 import VehiclePage from "../pages/VehiclePage";
 import ParkPage from "../pages/ParkPage";
 import AdminRoute from "../features/auth/AdminRoute";
+import AdminPage from "../pages/AdminPage";
+import ParkProfile from "../pages/ParkProfile";
 
 const router = createBrowserRouter([
   {
@@ -42,12 +42,21 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/admin",
     element: (
       <AdminRoute>
-        <AdminSetting />
+        <AuthLayout />
       </AdminRoute>
-    )
+    ),
+    children: [
+      {
+        path: "/admin",
+        element: <AdminPage />
+      },
+      {
+        path: "/:parkId/profile",
+        element: <ParkProfile />
+      }
+    ]
   },
   {
     element: (
@@ -83,10 +92,6 @@ const router = createBrowserRouter([
       {
         path: "/park",
         element: <ParkPage />
-      },
-      {
-        path: "/parksetting",
-        element: <ParkSetting />
       },
       {
         path: "/navigate",

@@ -13,10 +13,10 @@ export default function AdminSetting() {
   const handleSubmit = e => {
     e.preventDefault();
   };
-  console.log(name);
-  console.log(address);
-  console.log(priceRate);
-  console.log(minReserveTime);
+  // console.log(name);
+  // console.log(address);
+  // console.log(priceRate);
+  // console.log(minReserveTime);
 
   const handleEditImage = () => {};
 

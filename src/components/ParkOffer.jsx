@@ -1,8 +1,9 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import cat1 from "../assets/images/carpark/cat1.png";
+import { deletePark } from "../redux/admin-slice";
 
-export default function ParkItem({ el, onClick }) {
+export default function ParkOffer({ el, onClick }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleClick = () => {
@@ -25,6 +26,13 @@ export default function ParkItem({ el, onClick }) {
       <div className="text-white">{el?.name}</div>
       <div className="text-white">{el?.address}</div>
       <div className="text-white">{el?.priceRate + "฿ per hour"}</div>
+      <button
+        type="button"
+        className="border border-1 border-gray-300 rounded-md text-ls text-white"
+        onClick={() => dispatch(deletePark(el?.id))}
+      >
+        Remove
+      </button>
     </div>
   );
 }

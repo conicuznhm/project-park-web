@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function ParkForm() {
+export default function ParkEditForm() {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [priceRate, setPriceRate] = useState("");
@@ -58,7 +58,14 @@ export default function ParkForm() {
             value={minReserveTime}
             onChange={e => setMinReserveTime(e.target.value)}
           />
-
+          <input
+            type="file"
+            className=" placeholder:pl-1 placeholder: my-0 mx-auto w-full bg-transparent border border-[#3CACFD]  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5"
+            placeholder="image"
+            onChange={e => {
+              e.target.files[0] && setVehicleImage(e.target.files[0]);
+            }}
+          />
           <div>
             <button
               type="submit"

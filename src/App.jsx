@@ -13,6 +13,7 @@ import { fetchReservation } from "./redux/reserve-slice";
 import useVehicle from "./hooks/useVehicle";
 import useReservation from "./hooks/useReservation";
 import usePark from "./hooks/usePark";
+import { fetchOfferPark } from "./redux/admin-slice";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ function App() {
       dispatch(fetchVehicle());
       dispatch(fetchPark());
       dispatch(fetchReservation());
+      dispatch(fetchOfferPark());
     }
   }, [authUser]);
 
