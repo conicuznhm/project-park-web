@@ -6,7 +6,8 @@ import * as slotApi from "../apis/slot-api";
 const initialState = {
   park: [],
   floor: [],
-  slot: []
+  slot: [],
+  loading: false
 };
 
 //Park

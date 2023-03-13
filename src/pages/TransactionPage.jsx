@@ -1,5 +1,5 @@
-import { useSelector } from 'react-redux';
-import Report from '../layouts/Report';
+import { useSelector } from "react-redux";
+import Report from "../layouts/Report";
 
 export default function TransactionPage() {
   const res = useSelector(state => state.reserve.resReserve) || {};

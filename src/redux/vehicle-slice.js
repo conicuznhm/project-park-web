@@ -8,7 +8,7 @@ const initialState = {
 
 export const editVehicle = createAsyncThunk(
   "vehicle/editVehicle",
-  async ({ type, brand, license, vehicleImage, vehicleId }) => {
+  async ({ type, brand, license, vehicleImage, vehicleId }, thunkApi) => {
     try {
       const formData = new FormData();
       if (type) {
@@ -30,6 +30,18 @@ export const editVehicle = createAsyncThunk(
     }
   }
 );
+
+export const deleteVehicle = createAsyncThunk("vehicle/deleteVehicle", async vehicleId => {
+  try {
+    const res = await vehicleApi.deleteVehicleApi(vehicleId);
+    if (!res) {
+      throw new Error("cannot delete");
+    }
+    return vehicleId;
+  } catch (err) {
+    console.error(err);
+  }
+});
 
 const vehicleSlice = createSlice({
   name: "vehicle",
@@ -53,8 +65,11 @@ const vehicleSlice = createSlice({
         state.loading = true;
       })
       .addCase(editVehicle.fulfilled, (state, action) => {
-        state.vehicle = { ...state.vehicle, ...action.payload };
+        state.vehicle = action.payload;
         state.loading = initialState.loading;
+      })
+      .addCase(deleteVehicle.fulfilled, (state, action) => {
+        state.vehicle = state.vehicle.filter(el => el.id !== action.payload);
       });
   }
 });
@@ -71,7 +86,7 @@ export const fetchVehicle = () => async (dispatch, getState) => {
 export const createVehicle = input => async (dispatch, getState) => {
   try {
     const res = await vehicleApi.createVehicle(input);
-    dispatch(getCase(res.data));
+    dispatch(updateCase(res.data));
   } catch (err) {
     console.log(err);
   }

@@ -1,22 +1,22 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import * as vehicleApi from "../../apis/vehicle-api";
-import { createVehicle } from "../../redux/vehicle-slice";
+import { editVehicle } from "../../redux/vehicle-slice";
 
-export default function VehicleForm({ setIsShow }) {
+export default function VehicleEditForm({ setIsEdit, editId }) {
   const [type, setType] = useState("");
   const [brand, setBrand] = useState("");
   const [license, setLicense] = useState("");
+  const [vehicleImage, setVehicleImage] = useState("");
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(createVehicle({ type, brand, license }));
+    dispatch(editVehicle({ setIsEdit, type, brand, license, vehicleImage, vehicleId: editId }));
     setType("");
     setBrand("");
     setLicense("");
-    setIsShow(state => !state);
+    setVehicleImage("");
+    setIsEdit(state => !state);
   };
   // console.log(type);
   // console.log(brand);
@@ -26,6 +26,13 @@ export default function VehicleForm({ setIsShow }) {
       <div className="flex flex-col gap-y-5 h-auto">
         <h1 className="text-start text-white mb-4">Vehicle</h1>
         <div>
+          <input
+            type="file"
+            name="editVehicleImage"
+            onChange={e => {
+              e.target.files[0] && setVehicleImage(e.target.files[0]);
+            }}
+          />
           <input
             type="text"
             className=" placeholder:pl-1 placeholder:text-white my-0 mx-auto w-full bg-transparent border border-[#3CACFD] text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5"
