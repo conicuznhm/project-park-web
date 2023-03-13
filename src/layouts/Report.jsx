@@ -2,10 +2,6 @@ import { Link } from "react-router-dom";
 import ReportPara from "../components/ReportPara";
 
 export default function Report({ res }) {
-  // res.id  res.Park.name res.Park.address res.priceRate   res.reserveCost
-  // res.Slot.slotName  res.status  res.timeEnd  res.timeStart
-  //res.Vehicle.license
-
   return (
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <img className="rounded-t-lg" src="" alt="park" />
@@ -16,16 +12,41 @@ export default function Report({ res }) {
         </h5>
         {res ? (
           <div>
-            <ReportPara item={res?.Park?.name} />
-            <ReportPara item={res?.Park?.address} />
-            <ReportPara item={res?.Slot?.slotName} />
-            <ReportPara item={res?.priceRate} />
-            <ReportPara item={res?.timeStart} />
-            <ReportPara item={res?.timeEnd} />
-            <ReportPara item={res?.reserveCost} />
-            <ReportPara item={res?.status} />
-            <ReportPara item={res?.Vehicle?.brand} />
-            <ReportPara item={res?.Vehicle?.license} />
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              Park lot name : {res?.Park?.name}
+            </p>
+
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              Address : {res?.Park?.address}
+            </p>
+
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              Slot : {res?.Slot?.slotName}
+            </p>
+
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              Start time : {res?.timeStart}
+            </p>
+
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              End time : {res?.timeEnd}
+            </p>
+
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              {res?.priceRate} ฿ per hour
+            </p>
+
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              {res?.reserveCost} ฿
+            </p>
+
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              Vehicle brand : {res?.Vehicle?.brand}
+            </p>
+
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              Vehicle license : {res?.Vehicle?.license}
+            </p>
           </div>
         ) : null}
 

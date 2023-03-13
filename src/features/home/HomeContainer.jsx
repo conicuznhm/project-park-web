@@ -12,11 +12,11 @@ export default function HomeContainer() {
   return (
     <div className="flex flex-col gap-y-10">
       <div className="">
-        <div className="">
+        {/* <div className="">
           <Search />
-        </div>
+        </div> */}
         <div>
-          <span>Hi</span>
+          <div className="text-white text-2xl mt-4">Welcome</div>
         </div>
       </div>
       <div className="flex flex-col gap-y-10">
@@ -29,9 +29,9 @@ export default function HomeContainer() {
         <Link to="/park">
           <Item src={park4} alt="park2" name="Park lots" />
         </Link>
-        <Link to="/reserve">
+        {/* <Link to="/reserve">
           <Item src={park2} alt="park2" name="Booking" />
-        </Link>
+        </Link> */}
         <Link to="/slip">
           <Item src={park3} alt="park3" name="Reservation Profile" />
         </Link>

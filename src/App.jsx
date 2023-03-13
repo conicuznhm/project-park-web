@@ -32,7 +32,7 @@ function App() {
   // console.log(authUser);
   // console.log(vehicle);
   // console.log(reserve);
-  // console.log(park);
+  console.log(park);
 
   return (
     //remove className="max-w-[393px] mx-auto my-10" when deploy and need properly responsive

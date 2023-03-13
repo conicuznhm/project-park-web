@@ -84,7 +84,7 @@ const router = createBrowserRouter([
         element: <NavigatePage />
       },
       {
-        path: "/reserve",
+        path: "/:parkId/reserve",
         element: <ReservePage />
       },
       {

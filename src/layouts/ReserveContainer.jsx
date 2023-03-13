@@ -17,8 +17,7 @@ export default function ReserveContainer() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  //   const parkId = useParams();
-  const parkId = 1;
+  const { parkId } = useParams();
 
   //slotId = obj    vehicleId = number
   const now = new Date();
@@ -112,8 +111,8 @@ export default function ReserveContainer() {
     navigate("/transaction");
   };
 
-  console.log(floor);
-  console.log(reserveInput);
+  // console.log(floor);
+  // console.log(reserveInput);
   return (
     <form onSubmit={handleSubmit}>
       {floor.length ? (
