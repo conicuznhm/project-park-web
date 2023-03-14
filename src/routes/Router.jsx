@@ -17,7 +17,7 @@ import VehiclePage from "../pages/VehiclePage";
 import ParkPage from "../pages/ParkPage";
 import AdminRoute from "../features/auth/AdminRoute";
 import AdminPage from "../pages/AdminPage";
-import ParkProfile from "../pages/ParkProfile";
+import ParkEditForm from "../features/park/ParkEditForm";
 
 const router = createBrowserRouter([
   {
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/:parkId/profile",
-        element: <ParkProfile />
+        element: <ParkEditForm />
       }
     ]
   },

@@ -14,6 +14,9 @@ import useVehicle from "./hooks/useVehicle";
 import useReservation from "./hooks/useReservation";
 import usePark from "./hooks/usePark";
 import { fetchOfferPark } from "./redux/admin-slice";
+import Loading from "./components/Loading";
+import useParkLoading from "./hooks/useParkLoading";
+import useVehicleLoading from "./hooks/useVehicleLoading";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,7 +24,8 @@ function App() {
   const vehicle = useVehicle();
   const reserve = useReservation();
   const park = usePark();
-
+  const parkLoad = useParkLoading();
+  const vehicleLoad = useVehicleLoading();
   useEffect(() => {
     if (authUser) {
       dispatch(fetchVehicle());
@@ -34,11 +38,13 @@ function App() {
   // console.log(authUser);
   // console.log(vehicle);
   // console.log(reserve);
-  console.log(park);
+  // console.log(park);
 
   return (
     //remove className="max-w-[393px] mx-auto my-10" when deploy and need properly responsive
     <div className="max-w-[393px] mx-auto">
+      {parkLoad && <Loading />}
+      {vehicleLoad && <Loading />}
       <Router />
       <ToastContainer autoClose="2000" theme="light" position="top-center" />
     </div>

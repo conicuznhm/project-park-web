@@ -4,7 +4,7 @@ import axios from "../config/axios";
 export const getFloorOffer = () => axios.get("/offer/all/floor");
 
 export const getFloorApi = parkId => axios.get("/offer/" + parkId + "/floor");
-export const createFloorApi = (input, parkId) => axios.post("/offer/" + parkId + "/floor", input);
+export const createFloorApi = (parkId, input) => axios.post("/offer/" + parkId + "/floor", input);
 export const deleteFloorApi = floorId => axios.delete("/offer/floor/" + floorId);
 
 // export const updateFloor = (floorId, input) => axios.patch('/offer/floor/' + floorId, input);

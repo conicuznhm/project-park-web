@@ -18,7 +18,7 @@ export const fetchOfferPark = createAsyncThunk("offerPark/fetchOfferPark", async
   }
 });
 
-export const createPark = createAsyncThunk("offerPark/createPark", async () => {
+export const createPark = createAsyncThunk("offerPark/createPark", async input => {
   try {
     const res = await offerParkApi.createParkApi(input);
     return res.data;
@@ -29,7 +29,7 @@ export const createPark = createAsyncThunk("offerPark/createPark", async () => {
 
 export const editPark = createAsyncThunk(
   "offerPark/editPark",
-  async ({ name, address, priceRate, minReserveTime, parkImage }) => {
+  async ({ name, address, priceRate, minReserveTime, parkImage, parkId }) => {
     try {
       const formData = new FormData();
       if (name) {
@@ -48,6 +48,7 @@ export const editPark = createAsyncThunk(
         formData.append("parkImage", parkImage);
       }
       const res = await offerParkApi.editParkApi(parkId, formData);
+      console.log(res.data);
       return res.data;
     } catch (err) {
       console.error(err);
@@ -74,18 +75,25 @@ export const fetchOfferFloor = createAsyncThunk("offerPark/fetchOfferFloor", asy
   }
 });
 
-export const createFloor = createAsyncThunk("offerPark/createFloor", async input => {
-  try {
-    const res = await offerFloorApi.createFloorApi(input);
-    return res.data;
-  } catch (err) {
-    console.error(err);
+export const createFloor = createAsyncThunk(
+  "offerPark/createFloor",
+  async ({ floorName, slotAmount, parkId }) => {
+    try {
+      console.log(floorName);
+      console.log(slotAmount);
+      console.log(parkId);
+      const res = await offerFloorApi.createFloorApi(parkId, { floorName, slotAmount });
+      console.log(res.data);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
   }
-});
+);
 export const deleteFloor = createAsyncThunk("offerPark/deleteFloor", async floorId => {
   try {
     const res = await offerFloorApi.deleteFloorApi(floorId);
-    return res.data;
+    return floorId;
   } catch (err) {
     console.error(err);
   }
@@ -106,8 +114,8 @@ const adminSlice = createSlice({
         state.loading = true;
       })
       .addCase(editPark.fulfilled, (state, action) => {
-        state.park === action.payload;
-        state.loading = initialState.park;
+        state.park = action.payload;
+        state.loading = initialState.loading;
       });
     builder.addCase(fetchOfferPark.fulfilled, (state, action) => {
       state.park = action.payload;

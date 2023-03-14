@@ -1,12 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ParkOffer from "../../components/ParkOffer";
-import usePark from "../../hooks/usePark";
+import ParkForm from "./ParkForm";
 
 export default function ParkContainer() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [isEdit, setIsEdit] = useState(false);
   const park = useSelector(state => state.admin.park);
 
   const onClick = el => {
@@ -14,28 +14,23 @@ export default function ParkContainer() {
   };
 
   return (
-    <div>
+    <div className="">
       <div className="py-8 text-3xl text-white">Park Lots</div>
-      <div className="bg-[#18202C]">
-        <div className="flex flex-col text-end">
-          <div className="">
-            <button
-              type="button"
-              //   onClick={handleClick}
-              className="bg-[#749D38] text-[#d2efa9] rounded-sm p-1 px-5"
-            >
-              Add park lot
-            </button>
-          </div>
+      <div>
+        {park?.map(el => (
+          <ParkOffer el={el} onClick={onClick} key={el?.id} />
+        ))}
+        <div className="mt-10 flex justify-end">
+          <button
+            type="button"
+            onClick={() => setIsEdit(!isEdit)}
+            className="bg-[#749D38] text-[#d2efa9] rounded-sm p-1 px-5"
+          >
+            Add park lot
+          </button>
         </div>
       </div>
-      {park?.map(el => (
-        <ParkOffer el={el} onClick={onClick} key={el.id} />
-      ))}
-      {/* {cart?.map((el) => (
-          <VehicleItem el={el} onClick={onClick} key={el?.id} />
-        ))}
-        <VehicleAction sumPrice={sumPrice} /> */}
+      <div className="w-3/4 mx-auto">{isEdit && <ParkForm setIsEdit={setIsEdit} />}</div>
     </div>
   );
 }

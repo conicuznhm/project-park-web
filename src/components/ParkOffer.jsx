@@ -5,19 +5,11 @@ import { deletePark } from "../redux/admin-slice";
 
 export default function ParkOffer({ el, onClick }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const handleClick = () => {
-    navigate();
-    onClick(el);
-  };
   return (
-    <div
-      key={el?.id}
-      onClick={handleClick}
-      className="flex justify-between items-center bg-[#18202C] mt-4 pr-4"
-    >
+    <div key={el?.id} className="flex justify-between items-center bg-[#18202C] mt-4 pr-4">
       <div className="flex items-center">
         <img
+          onClick={() => onClick(el)}
           className="w-24 h-20 mb-3 rounded-xl shadow-lg cursor-pointer"
           src={el?.parkImage || cat1}
           alt="Park lot image"
