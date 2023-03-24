@@ -11,7 +11,7 @@ export default function ParkForm({ setIsEdit }) {
   const dispatch = useDispatch();
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(createPark({ name, address, priceRate, minReserveTime, parkImage }));
+    dispatch(createPark({ name, address, priceRate, minReserveTime }));
     setName("");
     setAddress("");
     setPriceRate("");
