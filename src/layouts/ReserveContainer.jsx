@@ -34,6 +34,8 @@ export default function ReserveContainer() {
   const [selectAll, setSelectAll] = useState(true);
   const [reserveInput, setReserveInput] = useState(initialInput);
   const [isShow, setIsShow] = useState(true);
+  const [selectedBox, setSelectedBox] = useState(null);
+
   const minStart = now.toISOString().slice(0, 16);
   const minEnd = new Date(reserveInput.selectStart).toISOString().slice(0, 16);
 
@@ -110,7 +112,9 @@ export default function ReserveContainer() {
     isPay ? dispatch(createReservation(reserveInput)) : console.log("Need to pay first");
     navigate("/transaction");
   };
-
+  const handleBoxSelect = id => {
+    setSelectedBox(id);
+  };
   // console.log(floor);
   // console.log(reserveInput);
   return (
@@ -134,7 +138,9 @@ export default function ReserveContainer() {
             {isShow && (
               <>
                 <div>
-                  <label htmlFor="start">Start</label>
+                  <label className="text-white" htmlFor="start">
+                    Start
+                  </label>
                   <input
                     id="start"
                     type="datetime-local"
@@ -145,7 +151,9 @@ export default function ReserveContainer() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="end">End</label>
+                  <label className="text-white" htmlFor="end">
+                    End
+                  </label>
                   <input
                     id="end"
                     type="datetime-local"
@@ -157,18 +165,36 @@ export default function ReserveContainer() {
                 </div>
               </>
             )}
-            {isShow && <ButtonCustom word="OK" type="button" onClick={handleOk} />}
             <div>
               {!isShow && <ButtonCustom word="Cancel" type="button" onClick={handleCancel} />}
               {!isShow && <ButtonCustom word="reserve" type="submit" />}
               {/* {!isShow && <Link to="/checkoutPage"/>} */}
             </div>
           </div>
-          <div>{isShow && <SelectVehicle />}</div>
+          <div className="">
+            <div>{isShow && <SelectVehicle />}</div>
+            <div>{isShow && <ButtonCustom word="OK" type="button" onClick={handleOk} />}</div>
+          </div>
           <div className="flex flex-wrap justify-center gap-y-4 gap-x-2">
             {slot.map(el => {
-              if (selectAll) return <VehicleSlot el={el} key={el.id} />;
-              if (+floorSelect === el.floorId) return <VehicleSlot el={el} key={el.id} />;
+              if (selectAll)
+                return (
+                  <VehicleSlot
+                    el={el}
+                    key={el.id}
+                    onSelect={handleBoxSelect}
+                    isSelected={selectedBox === el.id}
+                  />
+                );
+              if (+floorSelect === el.floorId)
+                return (
+                  <VehicleSlot
+                    el={el}
+                    key={el.id}
+                    onSelect={handleBoxSelect}
+                    isSelected={selectedBox === el.id}
+                  />
+                );
             })}
           </div>
         </div>
