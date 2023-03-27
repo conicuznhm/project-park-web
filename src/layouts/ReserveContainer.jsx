@@ -10,7 +10,12 @@ import SelectVehicle from "../components/SelectVehicle";
 import VehicleSlot from "../components/VehicleSlot";
 import { selectUser } from "../redux/auth-slice";
 import { fetchFloor, fetchSlot, selectFloor, selectSlot } from "../redux/park-slice";
-import { createReservation, selectSelectSlot, selectSelectVehicle } from "../redux/reserve-slice";
+import {
+  createReservation,
+  selectSelectSlot,
+  selectSelectVehicle,
+  updateSelectSlot
+} from "../redux/reserve-slice";
 import { fetchVehicle, selectVehicle } from "../redux/vehicle-slice";
 
 export default function ReserveContainer() {
@@ -102,8 +107,16 @@ export default function ReserveContainer() {
     setReserveInput({ ...reserveInput, ...inputBody });
     setIsShow(false);
   };
+  // const handleNo = () => {
+  //   setReserveInput(initialInput);
+  //   dispatch(updateSelectSlot({}));
+  //   setSelectedBox(null);
+  // };
+
   const handleCancel = () => {
     setReserveInput(initialInput);
+    dispatch(updateSelectSlot({}));
+    setSelectedBox(null);
     setIsShow(true);
   };
 
@@ -174,6 +187,7 @@ export default function ReserveContainer() {
           <div className="">
             <div>{isShow && <SelectVehicle />}</div>
             <div>{isShow && <ButtonCustom word="OK" type="button" onClick={handleOk} />}</div>
+            {/* <div>{isShow && <ButtonCustom word="Cancel" type="button" onClick={handleNo} />}</div> */}
           </div>
           <div className="flex flex-wrap justify-center gap-y-4 gap-x-2">
             {slot.map(el => {

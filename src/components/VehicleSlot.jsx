@@ -7,15 +7,22 @@ import { updateSelectSlot } from "../redux/reserve-slice";
 
 export default function VehicleSlot({ el, isSelected, onSelect }) {
   const dispatch = useDispatch();
-  // const [green, setGreen] = useState(null);
+  const [green, setGreen] = useState(false);
+  const [isCar, setIsCar] = useState(null);
 
   const handleClick = () => {
     if (el.isAvailable) {
       dispatch(updateSelectSlot(el));
       onSelect(el.id);
-      // el.id === +e.target.name && setGreen(true);
-      // setGreen(el.id);
-      // console.log(el.id);
+      setIsCar(el.id);
+
+      if (el.id === isCar) {
+        dispatch(updateSelectSlot({}));
+        onSelect(-1);
+        setIsCar(null);
+      }
+      console.log(el.id);
+      console.log(isCar);
     }
   };
 
