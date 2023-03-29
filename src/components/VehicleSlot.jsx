@@ -21,6 +21,7 @@ export default function VehicleSlot({ el, isSelected, onSelect }) {
         onSelect(-1);
         setIsCar(null);
       }
+      console.log(el);
       console.log(el.id);
       console.log(isCar);
     }
