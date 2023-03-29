@@ -40,6 +40,7 @@ export default function ReserveContainer() {
   const [reserveInput, setReserveInput] = useState(initialInput);
   const [isShow, setIsShow] = useState(true);
   const [selectedBox, setSelectedBox] = useState(null);
+  const [isSelected, setIsSelected] = useState(false);
 
   const minStart = now.toISOString().slice(0, 16);
   const minEnd = new Date(reserveInput.selectStart).toISOString().slice(0, 16);
@@ -125,8 +126,11 @@ export default function ReserveContainer() {
     isPay ? dispatch(createReservation(reserveInput)) : console.log("Need to pay first");
     navigate("/transaction");
   };
-  const handleBoxSelect = id => {
+  const onSelect = id => {
     setSelectedBox(id);
+    // if(selectedBox === el.id){
+    //   setIsSelected(true);
+    // }
   };
   // console.log(floor);
   // console.log(reserveInput);
@@ -196,8 +200,11 @@ export default function ReserveContainer() {
                   <VehicleSlot
                     el={el}
                     key={el.id}
-                    onSelect={handleBoxSelect}
-                    isSelected={selectedBox === el.id}
+                    onSelect={onSelect}
+                    selectedBox={selectedBox}
+                    setSelectedBox={setSelectedBox}
+                    // isSelected={isSelected}
+                    // setIsSelected={setIsSelected}
                   />
                 );
               if (+floorSelect === el.floorId)
@@ -205,8 +212,10 @@ export default function ReserveContainer() {
                   <VehicleSlot
                     el={el}
                     key={el.id}
-                    onSelect={handleBoxSelect}
+                    onSelect={onSelect}
                     isSelected={selectedBox === el.id}
+                    // isSelected={isSelected}
+                    setIsSelected={setIsSelected}
                   />
                 );
             })}

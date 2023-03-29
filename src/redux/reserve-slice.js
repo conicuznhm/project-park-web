@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import * as reserveApi from "../apis/reserve-api";
-import * as parkApi from "../apis/park-api";
-import * as floorApi from "../apis/floor-api";
-import * as slotApi from "../apis/slot-api";
+// import * as parkApi from "../apis/park-api";
+// import * as floorApi from "../apis/floor-api";
+// import * as slotApi from "../apis/slot-api";
 
 const initialState = {
   reservation: [],
@@ -54,23 +54,41 @@ const reserveSlice = createSlice({
       // return { ...state.reservation, ...action.payload };
     },
     updateSelectSlot(state, action) {
-      state.selectSlot = action.payload;
+      // console.log(current(state.selectSlot));
+      // console.log(action.payload.id);
+      if (state.selectSlot?.id !== action.payload?.id || !Object.keys(state.selectSlot).length) {
+        state.selectSlot = action.payload;
+      } else {
+        state.selectSlot = initialState.selectSlot;
+      }
     },
     updateSelectVehicle(state, action) {
       state.selectVehicle = action.payload;
     }
   },
-  extraReducers: {
-    [fetchReservation.fulfilled](state, action) {
+  // extraReducers: {
+  //   [fetchReservation.fulfilled](state, action) {
+  //     state.reservation = action.payload;
+  //   },
+  //   [createReservation.fulfilled](state, action) {
+  //     // state.reservation = [...state.reservation, ...action.payload];
+  //     state.resReserve = action.payload;
+  //   },
+  //   [updateReservation.fulfilled](state, action) {
+  //     state.reservation = [...state.reservation, ...action.payload];
+  //   }
+  // }
+  extraReducers(builder) {
+    builder.addCase(fetchReservation.fulfilled, (state, action) => {
       state.reservation = action.payload;
-    },
-    [createReservation.fulfilled](state, action) {
-      // state.reservation = [...state.reservation, ...action.payload];
+    });
+    builder.addCase(createReservation.fulfilled, (state, action) => {
       state.resReserve = action.payload;
-    },
-    [updateReservation.fulfilled](state, action) {
-      state.reservation = [...state.reservation, ...action.payload];
-    }
+    });
+    builder.addCase(updateReservation.fulfilled, (state, action) => {
+      // state.reservation=[...state.reservation,...action.payload]
+      state.reservation.push(action.payload);
+    });
   }
 });
 

@@ -1,29 +1,19 @@
 import car0 from "../assets/images/icon/car0.png";
 import carRed from "../assets/images/icon/carRed.png";
 import carGreen from "../assets/images/icon/carGreen.png";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateSelectSlot } from "../redux/reserve-slice";
 
-export default function VehicleSlot({ el, isSelected, onSelect }) {
+export default function VehicleSlot({ el, setSelectedBox, selectedBox, onSelect }) {
   const dispatch = useDispatch();
-  const [green, setGreen] = useState(false);
-  const [isCar, setIsCar] = useState(null);
 
   const handleClick = () => {
     if (el.isAvailable) {
       dispatch(updateSelectSlot(el));
       onSelect(el.id);
-      setIsCar(el.id);
-
-      if (el.id === isCar) {
-        dispatch(updateSelectSlot({}));
-        onSelect(-1);
-        setIsCar(null);
+      if (el.id === selectedBox) {
+        setSelectedBox(-1);
       }
-      console.log(el);
-      console.log(el.id);
-      console.log(isCar);
     }
   };
 
@@ -36,7 +26,7 @@ export default function VehicleSlot({ el, isSelected, onSelect }) {
       {el.slotName}
       <img
         // src={green ? carGreen : el.isAvailable ? car0 : carRed}
-        src={isSelected ? carGreen : el.isAvailable ? car0 : carRed}
+        src={selectedBox === el.id ? carGreen : el.isAvailable ? car0 : carRed}
         alt="Car"
         className="mx-auto"
         name={el.id}
