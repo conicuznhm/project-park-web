@@ -126,34 +126,35 @@ export default function ReserveContainer() {
     isPay ? dispatch(createReservation(reserveInput)) : console.log("Need to pay first");
     navigate("/transaction");
   };
-  const onSelect = id => {
-    setSelectedBox(id);
-    // if(selectedBox === el.id){
-    //   setIsSelected(true);
-    // }
-  };
-  // console.log(floor);
-  // console.log(reserveInput);
+
   return (
     <form onSubmit={handleSubmit}>
       {floor.length ? (
         <div>
-          <div>
-            <ButtonCustom word="All" onClick={handleClickAll} />
+          <div className="carousel flex flex-row gap-2">
+            <div className="carousel-item">
+              <ButtonCustom word="All" onClick={handleClickAll} my={`mb-0`} />
+            </div>
             {floor.map(el => {
               return (
-                <ButtonCustom
-                  word={"Floor " + el.floorName}
-                  onClick={handleClick}
-                  key={el.id}
-                  name={el.id}
-                />
+                <div className="carousel-item" key={el.id} data-slide={el.id}>
+                  <ButtonCustom
+                    word={"Floor " + el.floorName}
+                    onClick={handleClick}
+                    // key={el.id}
+                    name={el.id}
+                    my={`mb-0`}
+                  />
+                </div>
               );
             })}
           </div>
-          <div className="h-[10%]">
+          <div className="h-[10%] mt-2">
             {isShow && (
-              <>
+              <div className="flex">
+                <div className="flex flex-col justify-end">
+                  <SelectVehicle />
+                </div>
                 <div>
                   <label className="text-white" htmlFor="start">
                     Start
@@ -164,7 +165,7 @@ export default function ReserveContainer() {
                     min={minStart}
                     name="selectStart"
                     onChange={handleChangeDate}
-                    className="mr-2"
+                    className="mr-2 w-12"
                   />
                 </div>
                 <div>
@@ -177,10 +178,13 @@ export default function ReserveContainer() {
                     min={minEnd}
                     name="selectEnd"
                     onChange={handleChangeDate}
-                    className="mr-2"
+                    className="mr-2 w-12"
                   />
                 </div>
-              </>
+                <div className="flex flex-col justify-end">
+                  <ButtonCustom word="OK" type="button" onClick={handleOk} my={`mb-0`} />
+                </div>
+              </div>
             )}
             <div>
               {!isShow && <ButtonCustom word="Cancel" type="button" onClick={handleCancel} />}
@@ -188,23 +192,16 @@ export default function ReserveContainer() {
               {/* {!isShow && <Link to="/checkoutPage"/>} */}
             </div>
           </div>
-          <div className="">
-            <div>{isShow && <SelectVehicle />}</div>
-            <div>{isShow && <ButtonCustom word="OK" type="button" onClick={handleOk} />}</div>
-            {/* <div>{isShow && <ButtonCustom word="Cancel" type="button" onClick={handleNo} />}</div> */}
-          </div>
-          <div className="flex flex-wrap justify-center gap-y-4 gap-x-2">
+
+          <div className="flex flex-wrap justify-center gap-y-4 gap-x-2 mt-8">
             {slot.map(el => {
               if (selectAll)
                 return (
                   <VehicleSlot
                     el={el}
                     key={el.id}
-                    onSelect={onSelect}
                     selectedBox={selectedBox}
                     setSelectedBox={setSelectedBox}
-                    // isSelected={isSelected}
-                    // setIsSelected={setIsSelected}
                   />
                 );
               if (+floorSelect === el.floorId)
@@ -212,10 +209,8 @@ export default function ReserveContainer() {
                   <VehicleSlot
                     el={el}
                     key={el.id}
-                    onSelect={onSelect}
-                    isSelected={selectedBox === el.id}
-                    // isSelected={isSelected}
-                    setIsSelected={setIsSelected}
+                    selectedBox={selectedBox}
+                    setSelectedBox={setSelectedBox}
                   />
                 );
             })}

@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
 import { selectUser } from "../../redux/auth-slice";
 
 export default function AdminRoute({ children }) {

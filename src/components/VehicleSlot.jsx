@@ -4,15 +4,15 @@ import carGreen from "../assets/images/icon/carGreen.png";
 import { useDispatch } from "react-redux";
 import { updateSelectSlot } from "../redux/reserve-slice";
 
-export default function VehicleSlot({ el, setSelectedBox, selectedBox, onSelect }) {
+export default function VehicleSlot({ el, setSelectedBox, selectedBox }) {
   const dispatch = useDispatch();
 
   const handleClick = () => {
     if (el.isAvailable) {
       dispatch(updateSelectSlot(el));
-      onSelect(el.id);
+      setSelectedBox(el.id);
       if (el.id === selectedBox) {
-        setSelectedBox(-1);
+        setSelectedBox(null);
       }
     }
   };
@@ -34,26 +34,3 @@ export default function VehicleSlot({ el, setSelectedBox, selectedBox, onSelect 
     </div>
   );
 }
-
-// slotName={el.slotName}
-//                   key={el.id}
-//                   id={el.id}
-//                   isAvailable={el.isAvailable}
-//                   timeStart={el.timeStart}
-//                   timeEnd={el.timeEnd}
-//                   selectStart=""
-//                   selectEnd=""
-
-// moment(timeStart).isBefore(moment(selectEnd))
-// &&moment(timeStart).isAfter(moment(selectStart))
-// ||
-// moment(timeEnd).isBefore(moment(selectEnd))
-// &&moment(timeEnd).isAfter(moment(selectStart))
-// if true ==> not available
-// ||
-//   moment(timeStart).isBefore(moment(selectEnd))
-// &&moment(timeStart).isAfter(moment(selectStart))
-// &&
-// moment(timeEnd).isBefore(moment(selectEnd))
-// &&moment(timeEnd).isAfter(moment(selectStart))
-// if true ==> not available
