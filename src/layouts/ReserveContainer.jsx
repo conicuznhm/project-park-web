@@ -5,18 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import ButtonCustom from "../components/ButtonCustom";
-import OptionVehicle from "../components/OptionVehicle";
 import SelectVehicle from "../components/SelectVehicle";
 import VehicleSlot from "../components/VehicleSlot";
-import { selectUser } from "../redux/auth-slice";
 import { fetchFloor, fetchSlot, selectFloor, selectSlot } from "../redux/park-slice";
-import {
-  createReservation,
-  selectSelectSlot,
-  selectSelectVehicle,
-  updateSelectSlot
-} from "../redux/reserve-slice";
-import { fetchVehicle, selectVehicle } from "../redux/vehicle-slice";
+import useSelectVehicle from "../hooks/useSelectVehicle";
+import useSelectSlot from "../hooks/useSelectSlot";
+import { createReservation, updateSelectSlot } from "../redux/reserve-slice";
+import useSlot from "../hooks/useSlot";
+// import { fetchVehicle, selectVehicle } from "../redux/vehicle-slice";
 
 export default function ReserveContainer() {
   const dispatch = useDispatch();
@@ -26,9 +22,13 @@ export default function ReserveContainer() {
 
   //slotId = obj    vehicleId = number
   const now = new Date();
+  const nowEnd = new Date();
+  nowEnd.setHours(nowEnd.getHours() + 2);
   const initialInput = {
     selectStart: now.toISOString().slice(0, 16),
-    selectEnd: new Date(now.getTime() + 60000 * 60).toISOString().slice(0, 16),
+    selectEnd: nowEnd.toISOString().slice(0, 16),
+    // selectEnd = new Date(now.getTime() + 60000 * 60).toISOString().slice(0, 16),
+    // selectEnd: "",
     isPaid: "",
     slotId: "",
     parkId: "",
@@ -40,10 +40,10 @@ export default function ReserveContainer() {
   const [reserveInput, setReserveInput] = useState(initialInput);
   const [isShow, setIsShow] = useState(true);
   const [selectedBox, setSelectedBox] = useState(null);
-  const [isSelected, setIsSelected] = useState(false);
 
   const minStart = now.toISOString().slice(0, 16);
-  const minEnd = new Date(reserveInput.selectStart).toISOString().slice(0, 16);
+  const minEnd = reserveInput.selectStart;
+  // const minEnd = new Date(reserveInput.selectStart).toISOString().slice(0, 16);
 
   //fetch data
   //get floor by parkId
@@ -66,10 +66,12 @@ export default function ReserveContainer() {
     return () => clearTimeout(timeoutId);
   }, [parkId, reserveInput.selectStart, reserveInput.selectEnd]);
 
-  const slot = useSelector(selectSlot);
-
-  const slotSelect = useSelector(selectSelectSlot);
-  const vehicleSelect = useSelector(selectSelectVehicle);
+  // const slot = useSelector(selectSlot);
+  // const slotSelect = useSelector(selectSelectSlot);
+  // const vehicleSelect = useSelector(selectSelectVehicle);
+  const slot = useSlot();
+  const slotSelect = useSelectSlot();
+  const vehicleSelect = useSelectVehicle();
 
   //handle logic
   const handleClick = e => {
@@ -108,11 +110,6 @@ export default function ReserveContainer() {
     setReserveInput({ ...reserveInput, ...inputBody });
     setIsShow(false);
   };
-  // const handleNo = () => {
-  //   setReserveInput(initialInput);
-  //   dispatch(updateSelectSlot({}));
-  //   setSelectedBox(null);
-  // };
 
   const handleCancel = () => {
     setReserveInput(initialInput);

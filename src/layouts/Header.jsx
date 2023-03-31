@@ -38,7 +38,7 @@ export default function Header() {
   };
 
   const handleClickReserve = () => {
-    navigate("/reserve");
+    navigate("/slip");
   };
 
   return (

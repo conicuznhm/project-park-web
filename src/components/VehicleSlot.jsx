@@ -6,7 +6,6 @@ import { updateSelectSlot } from "../redux/reserve-slice";
 
 export default function VehicleSlot({ el, setSelectedBox, selectedBox }) {
   const dispatch = useDispatch();
-
   const handleClick = () => {
     if (el.isAvailable) {
       dispatch(updateSelectSlot(el));
@@ -15,6 +14,7 @@ export default function VehicleSlot({ el, setSelectedBox, selectedBox }) {
         setSelectedBox(null);
       }
     }
+    // console.log(el);
   };
 
   return (
