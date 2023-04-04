@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginCase } from "../../redux/auth-slice";
 import * as authApi from "../../apis/auth-api";
-import { setAccessToken } from "../../utils/local-storage";
+import { setAccessToken, setRememberMe } from "../../utils/local-storage";
 import jwtDecode from "jwt-decode";
 // import { useEffect } from 'react';
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isRemember, setIsRemember] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -19,9 +20,9 @@ export default function LoginForm() {
       e.preventDefault();
       const res = await authApi.login({ email, password });
       // console.log(res);
-      setAccessToken(res.data.accessToken);
       dispatch(loginCase(jwtDecode(res.data.accessToken)));
-
+      setAccessToken(res.data.accessToken);
+      setRememberMe(isRemember);
       toast.success("login successfully");
     } catch (err) {}
   };
@@ -56,8 +57,19 @@ export default function LoginForm() {
           {/* <div className="text-end">
             <Link to="">Forgot your password?</Link>
           </div> */}
+          <div className="text-start mt-4">
+            <input
+              id="checkBox"
+              type="checkbox"
+              className="checkbox checkbox-info"
+              value={isRemember}
+              onChange={e => setIsRemember(e.target.checked)}
+            />
+            <label htmlFor="checkBox" className="text-white ml-2">
+              Remember me
+            </label>
+          </div>
         </div>
-
         <div>
           <button
             type="submit"

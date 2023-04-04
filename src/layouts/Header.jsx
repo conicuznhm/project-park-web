@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { HamburgerIcon } from "../assets/icons";
 import { logoutCase } from "../redux/auth-slice";
-import { removeAccessToken } from "../utils/local-storage";
+import { removeAccessToken, removeRememberMe } from "../utils/local-storage";
 
 const mapping = {
   admin: "Admin",
@@ -25,6 +25,7 @@ export default function Header() {
   const dispatch = useDispatch();
   const handleClickOut = () => {
     removeAccessToken();
+    removeRememberMe();
     dispatch(logoutCase());
   };
 

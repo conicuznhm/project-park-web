@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import ButtonCustom from "../components/ButtonCustom";
 import SelectVehicle from "../components/SelectVehicle";
 import VehicleSlot from "../components/VehicleSlot";
-import { fetchFloor, fetchSlot, selectFloor, selectSlot } from "../redux/park-slice";
+import { fetchFloor, fetchSlot, selectFloor } from "../redux/park-slice";
 import useSelectVehicle from "../hooks/useSelectVehicle";
 import useSelectSlot from "../hooks/useSelectSlot";
 import { createReservation, updateSelectSlot } from "../redux/reserve-slice";

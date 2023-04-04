@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getAccessToken, removeAccessToken } from "../utils/local-storage";
+import { getAccessToken, removeAccessToken, removeRememberMe } from "../utils/local-storage";
 import * as authApi from "../apis/auth-api";
 import jwtDecode from "jwt-decode";
 
@@ -28,6 +28,7 @@ export const fetchAuthUser = () => async (dispatch, getState) => {
     dispatch(loginCase(res.data.user));
   } catch (err) {
     removeAccessToken();
+    removeRememberMe();
     console.error(err);
   }
 };

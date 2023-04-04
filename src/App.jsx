@@ -2,7 +2,12 @@ import Router from "./routes/Router";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getAccessToken } from "./utils/local-storage";
+import {
+  getAccessToken,
+  getRememberMe,
+  removeAccessToken,
+  removeRememberMe
+} from "./utils/local-storage";
 import { useDispatch } from "react-redux";
 import { fetchAuthUser } from "./redux/auth-slice";
 import { useEffect } from "react";
@@ -21,11 +26,12 @@ import useVehicleLoading from "./hooks/useVehicleLoading";
 function App() {
   const dispatch = useDispatch();
   const authUser = useAuth();
-  const vehicle = useVehicle();
-  const reserve = useReservation();
-  const park = usePark();
+  // const vehicle = useVehicle();
+  // const reserve = useReservation();
+  // const park = usePark();
   const parkLoad = useParkLoading();
   const vehicleLoad = useVehicleLoading();
+
   useEffect(() => {
     if (authUser) {
       dispatch(fetchVehicle());
@@ -39,6 +45,22 @@ function App() {
   // console.log(vehicle);
   // console.log(reserve);
   // console.log(park);
+  // const isRemember = !!getRememberMe();
+  // console.log(isRemember);
+  // console.log(typeof isRemember);
+  // useEffect(() => {
+  //   const beforeunloadHandle = e => {
+  //     // e.preventDefault();
+  //     removeAccessToken();
+  //     removeRememberMe();
+  //     e.returnValue = "";
+  //   };
+  //   // window.addEventListener("beforeunload", beforeunloadHandle);
+  //   if (!true) {
+  //     window.addEventListener("beforeunload", beforeunloadHandle);
+  //     return () => window.removeEventListener("beforeunload", beforeunloadHandle);
+  //   }
+  // }, [getRememberMe()]);
 
   return (
     //remove className="max-w-[393px] mx-auto my-10" when deploy and need properly responsive
