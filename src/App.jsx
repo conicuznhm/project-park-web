@@ -22,10 +22,12 @@ import { fetchOfferPark } from "./redux/admin-slice";
 import Loading from "./components/Loading";
 import useParkLoading from "./hooks/useParkLoading";
 import useVehicleLoading from "./hooks/useVehicleLoading";
+import useRemember from "./hooks/useRemember";
 
 function App() {
   const dispatch = useDispatch();
   const authUser = useAuth();
+  const remember = useRemember();
   // const vehicle = useVehicle();
   // const reserve = useReservation();
   // const park = usePark();
@@ -40,27 +42,19 @@ function App() {
       dispatch(fetchOfferPark());
     }
   }, [authUser]);
+  console.log("remember", Boolean(getRememberMe()));
+  console.log("!remember", !!!getRememberMe());
 
-  // console.log(authUser);
-  // console.log(vehicle);
-  // console.log(reserve);
-  // console.log(park);
-  // const isRemember = !!getRememberMe();
-  // console.log(isRemember);
-  // console.log(typeof isRemember);
-  // useEffect(() => {
-  //   const beforeunloadHandle = e => {
-  //     // e.preventDefault();
-  //     removeAccessToken();
-  //     removeRememberMe();
-  //     e.returnValue = "";
-  //   };
-  //   // window.addEventListener("beforeunload", beforeunloadHandle);
-  //   if (!true) {
-  //     window.addEventListener("beforeunload", beforeunloadHandle);
-  //     return () => window.removeEventListener("beforeunload", beforeunloadHandle);
-  //   }
-  // }, [getRememberMe()]);
+  useEffect(() => {
+    if (!!!getRememberMe()) {
+      const unloadHandle = () => {
+        removeRememberMe();
+        removeAccessToken();
+      };
+      window.addEventListener("beforeunload", unloadHandle);
+      return () => window.removeEventListener("beforeunload", unloadHandle);
+    }
+  }, [remember]);
 
   return (
     //remove className="max-w-[393px] mx-auto my-10" when deploy and need properly responsive

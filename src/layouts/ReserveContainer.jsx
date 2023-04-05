@@ -128,58 +128,65 @@ export default function ReserveContainer() {
     <form onSubmit={handleSubmit}>
       {floor.length ? (
         <div>
-          <div className="carousel flex flex-row gap-2">
-            <div className="carousel-item">
-              <ButtonCustom word="All" onClick={handleClickAll} my={`mb-0`} />
-            </div>
+          <div className="whitespace-nowrap overflow-x-auto pl-3">
+            <ButtonCustom word="All" onClick={handleClickAll} my={`mb-0`} mx={`mr-3`} />
             {floor.map(el => {
               return (
-                <div className="carousel-item" key={el.id} data-slide={el.id}>
-                  <ButtonCustom
-                    word={"Floor " + el.floorName}
-                    onClick={handleClick}
-                    // key={el.id}
-                    name={el.id}
-                    my={`mb-0`}
-                  />
-                </div>
+                <ButtonCustom
+                  word={"Floor " + el.floorName}
+                  onClick={handleClick}
+                  key={el.id}
+                  name={el.id}
+                  my={`mb-0`}
+                  mx={`mr-3`}
+                />
               );
             })}
           </div>
+          {isShow && (
+            <div className="flex gap-2">
+              <div>
+                <label className="text-white" htmlFor="start">
+                  Start
+                </label>
+                <input
+                  id="start"
+                  type="datetime-local"
+                  min={minStart}
+                  name="selectStart"
+                  onChange={handleChangeDate}
+                  className="mr-2 w-[170px]"
+                />
+              </div>
+              <div>
+                <label className="text-white" htmlFor="end">
+                  End
+                </label>
+                <input
+                  id="end"
+                  type="datetime-local"
+                  min={minEnd}
+                  name="selectEnd"
+                  onChange={handleChangeDate}
+                  className="mr-2 w-[170px]"
+                />
+              </div>
+            </div>
+          )}
           <div className="h-[10%] mt-2">
             {isShow && (
-              <div className="flex">
-                <div className="flex flex-col justify-end">
+              <div className="flex justify-between gap-2">
+                <div className="">
                   <SelectVehicle />
                 </div>
                 <div>
-                  <label className="text-white" htmlFor="start">
-                    Start
-                  </label>
-                  <input
-                    id="start"
-                    type="datetime-local"
-                    min={minStart}
-                    name="selectStart"
-                    onChange={handleChangeDate}
-                    className="mr-2 w-12"
+                  <ButtonCustom
+                    word="OK"
+                    type="button"
+                    onClick={handleOk}
+                    my={`mb-0`}
+                    width={`[160px]`}
                   />
-                </div>
-                <div>
-                  <label className="text-white" htmlFor="end">
-                    End
-                  </label>
-                  <input
-                    id="end"
-                    type="datetime-local"
-                    min={minEnd}
-                    name="selectEnd"
-                    onChange={handleChangeDate}
-                    className="mr-2 w-12"
-                  />
-                </div>
-                <div className="flex flex-col justify-end">
-                  <ButtonCustom word="OK" type="button" onClick={handleOk} my={`mb-0`} />
                 </div>
               </div>
             )}

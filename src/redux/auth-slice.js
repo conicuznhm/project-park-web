@@ -4,7 +4,10 @@ import * as authApi from "../apis/auth-api";
 import jwtDecode from "jwt-decode";
 
 // const initialState = { authUser: getAccessToken() ? true : null };
-const initialState = { authUser: getAccessToken() ? jwtDecode(getAccessToken()) : null };
+const initialState = {
+  authUser: getAccessToken() ? jwtDecode(getAccessToken()) : null,
+  remember: false
+};
 export const authSlice = createSlice({
   name: "user",
   initialState,
@@ -18,6 +21,9 @@ export const authSlice = createSlice({
     //update user profile
     updateCase: (state, action) => {
       state.authUser = { ...state.authUser, ...action.payload };
+    },
+    updateRemember: (state, action) => {
+      state.remember = action.payload;
     }
   }
 });
@@ -28,11 +34,10 @@ export const fetchAuthUser = () => async (dispatch, getState) => {
     dispatch(loginCase(res.data.user));
   } catch (err) {
     removeAccessToken();
-    removeRememberMe();
     console.error(err);
   }
 };
 
-export const { loginCase, logoutCase, updateCase } = authSlice.actions;
+export const { loginCase, logoutCase, updateCase, updateRemember } = authSlice.actions;
 export const selectUser = state => state.user.authUser;
 export default authSlice.reducer;

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { loginCase } from "../../redux/auth-slice";
+import { loginCase, updateRemember } from "../../redux/auth-slice";
 import * as authApi from "../../apis/auth-api";
 import { setAccessToken, setRememberMe } from "../../utils/local-storage";
 import jwtDecode from "jwt-decode";
@@ -19,10 +19,10 @@ export default function LoginForm() {
     try {
       e.preventDefault();
       const res = await authApi.login({ email, password });
-      // console.log(res);
       dispatch(loginCase(jwtDecode(res.data.accessToken)));
+      isRemember && dispatch(updateRemember(true));
       setAccessToken(res.data.accessToken);
-      setRememberMe(isRemember);
+      isRemember && setRememberMe(true);
       toast.success("login successfully");
     } catch (err) {}
   };
