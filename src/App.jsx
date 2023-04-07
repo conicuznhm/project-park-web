@@ -42,8 +42,8 @@ function App() {
       dispatch(fetchOfferPark());
     }
   }, [authUser]);
-  console.log("remember", Boolean(getRememberMe()));
-  console.log("!remember", !!!getRememberMe());
+  // console.log("remember", Boolean(getRememberMe()));
+  // console.log("!remember", !!!getRememberMe());
 
   useEffect(() => {
     if (!!!getRememberMe()) {

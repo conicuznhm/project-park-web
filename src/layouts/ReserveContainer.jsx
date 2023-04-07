@@ -1,4 +1,3 @@
-import moment from "moment";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +11,7 @@ import useSelectVehicle from "../hooks/useSelectVehicle";
 import useSelectSlot from "../hooks/useSelectSlot";
 import { createReservation, updateSelectSlot } from "../redux/reserve-slice";
 import useSlot from "../hooks/useSlot";
+import CustomCarousel from "../components/CustomCarousel";
 // import { fetchVehicle, selectVehicle } from "../redux/vehicle-slice";
 
 export default function ReserveContainer() {
@@ -128,8 +128,8 @@ export default function ReserveContainer() {
     <form onSubmit={handleSubmit}>
       {floor.length ? (
         <div>
-          <div className="whitespace-nowrap overflow-x-auto pl-3">
-            <ButtonCustom word="All" onClick={handleClickAll} my={`mb-0`} mx={`mr-3`} />
+          <CustomCarousel gap={`gap-x-2`}>
+            <ButtonCustom word="All" onClick={handleClickAll} my={`mb-0`} />
             {floor.map(el => {
               return (
                 <ButtonCustom
@@ -138,15 +138,14 @@ export default function ReserveContainer() {
                   key={el.id}
                   name={el.id}
                   my={`mb-0`}
-                  mx={`mr-3`}
                 />
               );
             })}
-          </div>
+          </CustomCarousel>
           {isShow && (
-            <div className="flex gap-2">
+            <div className="flex justify-between">
               <div>
-                <label className="text-white" htmlFor="start">
+                <label className="block text-white" htmlFor="start">
                   Start
                 </label>
                 <input
@@ -155,11 +154,11 @@ export default function ReserveContainer() {
                   min={minStart}
                   name="selectStart"
                   onChange={handleChangeDate}
-                  className="mr-2 w-[170px]"
+                  className="block w-44"
                 />
               </div>
               <div>
-                <label className="text-white" htmlFor="end">
+                <label className="block text-white" htmlFor="end">
                   End
                 </label>
                 <input
@@ -168,15 +167,15 @@ export default function ReserveContainer() {
                   min={minEnd}
                   name="selectEnd"
                   onChange={handleChangeDate}
-                  className="mr-2 w-[170px]"
+                  className="block w-44"
                 />
               </div>
             </div>
           )}
           <div className="h-[10%] mt-2">
             {isShow && (
-              <div className="flex justify-between gap-2">
-                <div className="">
+              <div className="flex justify-between">
+                <div>
                   <SelectVehicle />
                 </div>
                 <div>
@@ -185,7 +184,7 @@ export default function ReserveContainer() {
                     type="button"
                     onClick={handleOk}
                     my={`mb-0`}
-                    width={`[160px]`}
+                    width={`w-40`}
                   />
                 </div>
               </div>

@@ -47,3 +47,17 @@
 .read-the-docs {
   color: #888;
 }
+
+/* input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+} */
+
+.css-scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.css-scroll-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
